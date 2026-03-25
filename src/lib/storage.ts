@@ -1,20 +1,22 @@
-import type { ClientData, Meeting, Category, Person } from './types';
+import type { Category, ClientData, Meeting, Person } from "./types";
 
-const CLIENTS_INDEX_KEY = 'meeting_calendar:clients';
-const ACTIVE_KEY = 'meeting_calendar:active';
+const CLIENTS_INDEX_KEY = "meeting_calendar:clients";
+const ACTIVE_KEY = "meeting_calendar:active";
 
 function clientStorageKey(name: string): string {
   return `meeting_calendar:${name}`;
 }
 
 function isBrowser(): boolean {
-  return typeof window !== 'undefined';
+  return typeof window !== "undefined";
 }
 
 export function getClientList(): string[] {
   if (!isBrowser()) return [];
   try {
-    return JSON.parse(localStorage.getItem(CLIENTS_INDEX_KEY) || '[]') as string[];
+    return JSON.parse(
+      localStorage.getItem(CLIENTS_INDEX_KEY) || "[]",
+    ) as string[];
   } catch {
     return [];
   }
@@ -96,14 +98,18 @@ export function exportJSON(
   clientName: string,
   meetings: Meeting[],
   categories: Category[],
-  people: Person[]
+  people: Person[],
 ): void {
   const today = new Date().toISOString().slice(0, 10);
-  const slug = clientName.replace(/[^a-z0-9]/gi, '-').toLowerCase();
-  const payload = JSON.stringify({ client: clientName, meetings, categories, people }, null, 2);
-  const blob = new Blob([payload], { type: 'application/json' });
+  const slug = clientName.replace(/[^a-z0-9]/gi, "-").toLowerCase();
+  const payload = JSON.stringify(
+    { client: clientName, meetings, categories, people },
+    null,
+    2,
+  );
+  const blob = new Blob([payload], { type: "application/json" });
   const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
+  const a = document.createElement("a");
   a.href = url;
   a.download = `meetings-${slug}-${today}.json`;
   a.click();

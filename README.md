@@ -23,23 +23,23 @@ A recurring meeting schedule viewer and editor. Manage clients, categories, peop
 
 ## Stack
 
-| Layer | Technology |
-|---|---|
-| Framework | Next.js 16 (App Router) |
-| Language | TypeScript 6 |
-| UI Library | React 19 |
-| Styling | Tailwind CSS v4 |
-| Components | Flowbite React |
-| Icons | react-icons (Heroicons v2) |
-| Storage | Browser localStorage |
+| Layer      | Technology                 |
+| ---------- | -------------------------- |
+| Framework  | Next.js 16 (App Router)    |
+| Language   | TypeScript 6               |
+| UI Library | React 19                   |
+| Styling    | Tailwind CSS v4            |
+| Components | Flowbite React             |
+| Icons      | react-icons (Heroicons v2) |
+| Storage    | Browser localStorage       |
 
 ---
 
 ## Routes
 
-| Route | Description |
-|---|---|
-| `/` | Calendar view — weekly grid + meetings list |
+| Route     | Description                                                       |
+| --------- | ----------------------------------------------------------------- |
+| `/`       | Calendar view — weekly grid + meetings list                       |
 | `/editor` | Meeting editor — manage clients, categories, people, and meetings |
 
 ---
@@ -107,11 +107,11 @@ pnpm lint     # Run ESLint
 
 All data is persisted in `localStorage` with no server or database. Each client gets its own namespaced key:
 
-| Key | Contents |
-|---|---|
-| `meeting_calendar:clients` | Ordered list of client names |
-| `meeting_calendar:active` | Currently selected client name |
-| `meeting_calendar:{name}` | Meetings, categories, and people for that client |
+| Key                        | Contents                                         |
+| -------------------------- | ------------------------------------------------ |
+| `meeting_calendar:clients` | Ordered list of client names                     |
+| `meeting_calendar:active`  | Currently selected client name                   |
+| `meeting_calendar:{name}`  | Meetings, categories, and people for that client |
 
 Data can be exported as JSON and re-imported into any client (replace or merge).
 
@@ -122,19 +122,19 @@ Data can be exported as JSON and re-imported into any client (replace or merge).
 `@/*` maps to the repo root. For example:
 
 ```ts
-import { Meeting } from '@/src/lib/types';
+import { Meeting } from "@/src/lib/types";
 ```
 
 ---
 
 ## Color Palette
 
-| Token | Hex | Usage |
-|---|---|---|
-| `app-blue` | `#17A7DA` | Primary actions, highlights |
-| `app-navy` | `#11395B` | Header background, hover states |
-| `app-dark` | `#0D253A` | Body text |
-| `app-gray` | `#FBF9F6` | Page background |
-| `app-border` | `#D4E7ED` | Borders, dividers |
-| `app-light` | `#EAF6FB` | Subtle backgrounds |
-| `app-muted` | `#7BB3C5` | Secondary text, icons |
+| Token        | Hex       | Usage                           |
+| ------------ | --------- | ------------------------------- |
+| `app-blue`   | `#17A7DA` | Primary actions, highlights     |
+| `app-navy`   | `#11395B` | Header background, hover states |
+| `app-dark`   | `#0D253A` | Body text                       |
+| `app-gray`   | `#FBF9F6` | Page background                 |
+| `app-border` | `#D4E7ED` | Borders, dividers               |
+| `app-light`  | `#EAF6FB` | Subtle backgrounds              |
+| `app-muted`  | `#7BB3C5` | Secondary text, icons           |

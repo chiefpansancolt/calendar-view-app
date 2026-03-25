@@ -1,4 +1,4 @@
-import type { Meeting } from './types';
+import type { Meeting } from "./types";
 
 export const DAY_START = 9;
 export const DAY_END = 17;
@@ -6,15 +6,15 @@ export const PX_PER_HOUR = 120;
 export const PX_PER_MIN = PX_PER_HOUR / 60;
 
 export function fmt12(t: string): string {
-  if (!t) return '';
-  const [h, m] = t.split(':').map(Number);
-  const ampm = h >= 12 ? 'PM' : 'AM';
+  if (!t) return "";
+  const [h, m] = t.split(":").map(Number);
+  const ampm = h >= 12 ? "PM" : "AM";
   const h12 = h % 12 || 12;
-  return `${h12}:${String(m).padStart(2, '0')} ${ampm}`;
+  return `${h12}:${String(m).padStart(2, "0")} ${ampm}`;
 }
 
 export function toMinutes(t: string): number {
-  const [h, m] = t.split(':').map(Number);
+  const [h, m] = t.split(":").map(Number);
   return h * 60 + m;
 }
 
@@ -25,7 +25,7 @@ export function hexToLight(hex: string, alpha = 0.12): string {
     const b = parseInt(hex.slice(5, 7), 16);
     return `rgba(${r},${g},${b},${alpha})`;
   } catch {
-    return '#f0f0f0';
+    return "#f0f0f0";
   }
 }
 
@@ -36,12 +36,15 @@ export function darkenHex(hex: string, amount = 0.3): string {
     const b = Math.round(parseInt(hex.slice(5, 7), 16) * (1 - amount));
     return `rgb(${r},${g},${b})`;
   } catch {
-    return '#555';
+    return "#555";
   }
 }
 
 export function genId(): string {
-  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+  if (
+    typeof crypto !== "undefined" &&
+    typeof crypto.randomUUID === "function"
+  ) {
     return crypto.randomUUID();
   }
   return Date.now().toString(36) + Math.random().toString(36).slice(2);
@@ -49,7 +52,7 @@ export function genId(): string {
 
 export function normaliseDays(val: string | string[]): string[] {
   if (Array.isArray(val)) return val;
-  if (typeof val === 'string' && val) return [val];
+  if (typeof val === "string" && val) return [val];
   return [];
 }
 
@@ -85,7 +88,9 @@ export function computeLayout(dayMeetings: Meeting[]): LayoutItem[] {
   for (const item of items) {
     let placed = false;
     for (const group of groups) {
-      if (group.some((g) => item.startMin < g.endMin && g.startMin < item.endMin)) {
+      if (
+        group.some((g) => item.startMin < g.endMin && g.startMin < item.endMin)
+      ) {
         group.push(item);
         placed = true;
         break;
@@ -125,8 +130,24 @@ export function computeLayout(dayMeetings: Meeting[]): LayoutItem[] {
 }
 
 export const RANDOM_COLORS = [
-  '#17A7DA', '#11395B', '#0D253A', '#7BB3C5', '#5CB54D',
-  '#FABA00', '#CD1012', '#7ECBE3', '#8EDB7A', '#FFDA2D',
-  '#EA4A22', '#6366F1', '#8B5CF6', '#EC4899', '#14B8A6',
-  '#F97316', '#84CC16', '#06B6D4', '#A855F7', '#EF4444',
+  "#17A7DA",
+  "#11395B",
+  "#0D253A",
+  "#7BB3C5",
+  "#5CB54D",
+  "#FABA00",
+  "#CD1012",
+  "#7ECBE3",
+  "#8EDB7A",
+  "#FFDA2D",
+  "#EA4A22",
+  "#6366F1",
+  "#8B5CF6",
+  "#EC4899",
+  "#14B8A6",
+  "#F97316",
+  "#84CC16",
+  "#06B6D4",
+  "#A855F7",
+  "#EF4444",
 ];
