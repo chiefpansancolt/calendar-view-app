@@ -7,7 +7,7 @@ settings:
 dependencies:
   flowbite-react:
     specifier: ^0.12.17
-    version: 0.12.17(react-dom@19.2.4)(react@19.2.4)(tailwindcss@4.0.0)
+    version: 0.12.17(react-dom@19.2.4)(react@19.2.4)(tailwindcss@4.2.2)
   next:
     specifier: 16.2.1
     version: 16.2.1(@babel/core@7.29.0)(react-dom@19.2.4)(react@19.2.4)
@@ -17,11 +17,14 @@ dependencies:
   react-dom:
     specifier: 19.2.4
     version: 19.2.4(react@19.2.4)
+  react-icons:
+    specifier: ^5.6.0
+    version: 5.6.0(react@19.2.4)
 
 devDependencies:
   '@tailwindcss/postcss':
-    specifier: ^4
-    version: 4.0.0
+    specifier: ^4.2.2
+    version: 4.2.2
   '@types/node':
     specifier: ^25
     version: 25.0.0
@@ -38,8 +41,8 @@ devDependencies:
     specifier: 16.2.1
     version: 16.2.1(@typescript-eslint/parser@8.57.2)(eslint@9.0.0)(typescript@6.0.2)
   tailwindcss:
-    specifier: ^4
-    version: 4.0.0
+    specifier: ^4.2.2
+    version: 4.2.2
   typescript:
     specifier: ^6
     version: 6.0.2
@@ -1044,15 +1047,14 @@ packages:
       '@tailwindcss/oxide-win32-x64-msvc': 4.2.2
     dev: true
 
-  /@tailwindcss/postcss@4.0.0:
-    resolution: {integrity: sha512-lI2bPk4TvwavHdehjr5WiC6HnZ59hacM6ySEo4RM/H7tsjWd8JpqiNW9ThH7rO/yKtrn4mGBoXshpvn8clXjPg==}
+  /@tailwindcss/postcss@4.2.2:
+    resolution: {integrity: sha512-n4goKQbW8RVXIbNKRB/45LzyUqN451deQK0nzIeauVEqjlI49slUlgKYJM2QyUzap/PcpnS7kzSUmPb1sCRvYQ==}
     dependencies:
       '@alloc/quick-lru': 5.2.0
       '@tailwindcss/node': 4.2.2
       '@tailwindcss/oxide': 4.2.2
-      lightningcss: 1.32.0
       postcss: 8.5.8
-      tailwindcss: 4.0.0
+      tailwindcss: 4.2.2
     dev: true
 
   /@tybys/wasm-util@0.10.1:
@@ -2318,7 +2320,7 @@ packages:
     resolution: {integrity: sha512-PjDse7RzhcPkIJwy5t7KPWQSZ9cAbzQXcafsetQoD7sOJRQlGikNbx7yZp2OotDnJyrDcbyRq3Ttb18iYOqkxA==}
     dev: true
 
-  /flowbite-react@0.12.17(react-dom@19.2.4)(react@19.2.4)(tailwindcss@4.0.0):
+  /flowbite-react@0.12.17(react-dom@19.2.4)(react@19.2.4)(tailwindcss@4.2.2):
     resolution: {integrity: sha512-En0zhGePac4hFWdikoyor0dQlUM8PbLPvGvFGovssDcw82pdjp9XLg3+bAaiy+83/7vEQY6Ajjnzbrsw4ru/Cg==}
     hasBin: true
     peerDependencies:
@@ -2341,7 +2343,7 @@ packages:
       react-dom: 19.2.4(react@19.2.4)
       tailwind-merge-v2: /tailwind-merge@2.6.1
       tailwind-merge-v3: /tailwind-merge@3.4.0
-      tailwindcss: 4.0.0
+      tailwindcss: 4.2.2
     dev: false
 
   /for-each@0.3.5:
@@ -3323,6 +3325,14 @@ packages:
       scheduler: 0.27.0
     dev: false
 
+  /react-icons@5.6.0(react@19.2.4):
+    resolution: {integrity: sha512-RH93p5ki6LfOiIt0UtDyNg/cee+HLVR6cHHtW3wALfo+eOHTp8RnU2kRkI6E+H19zMIs03DyxUG/GfZMOGvmiA==}
+    peerDependencies:
+      react: '*'
+    dependencies:
+      react: 19.2.4
+    dev: false
+
   /react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
     dev: true
@@ -3708,12 +3718,8 @@ packages:
     resolution: {integrity: sha512-uSaO4gnW+b3Y2aWoWfFpX62vn2sR3skfhbjsEnaBI81WD1wBLlHZe5sWf0AqjksNdYTbGBEd0UasQMT3SNV15g==}
     dev: false
 
-  /tailwindcss@4.0.0:
-    resolution: {integrity: sha512-ULRPI3A+e39T7pSaf1xoi58AqqJxVCLg8F/uM5A3FadUbnyDTgltVnXJvdkTjwCOGA6NazqHVcwPJC5h2vRYVQ==}
-
   /tailwindcss@4.2.2:
     resolution: {integrity: sha512-KWBIxs1Xb6NoLdMVqhbhgwZf2PGBpPEiwOqgI4pFIYbNTfBXiKYyWoTsXgBQ9WFg/OlhnvHaY+AEpW7wSmFo2Q==}
-    dev: true
 
   /tapable@2.3.2:
     resolution: {integrity: sha512-1MOpMXuhGzGL5TTCZFItxCc0AARf1EZFQkGqMm7ERKj8+Hgr5oLvJOVFcC+lRmR8hCe2S3jC4T5D7Vg/d7/fhA==}

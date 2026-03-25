@@ -1,65 +1,134 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { HiPrinter, HiPencilSquare } from 'react-icons/hi2';
+import type { Meeting, Category, Person } from '@/src/lib/types';
+import {
+  resolveActiveClient,
+  getClientList,
+  loadClientData,
+  setActiveClient,
+} from '@/src/lib/storage';
+import AppHeader from '@/src/components/AppHeader';
+import AttendeeFilterDropdown from '@/src/components/AttendeeFilterDropdown';
+import CalendarGrid from '@/src/components/CalendarGrid';
+import MeetingsList from '@/src/components/MeetingsList';
+import Legend from '@/src/components/Legend';
+import EmptyState from '@/src/components/EmptyState';
+
+export default function CalendarPage() {
+  const [activeClient, setActiveClientState] = useState<string | null>(null);
+  const [clientList, setClientListState] = useState<string[]>([]);
+  const [meetings, setMeetings] = useState<Meeting[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [people, setPeople] = useState<Person[]>([]);
+  const [attendeeFilter, setAttendeeFilter] = useState<string | null>(null);
+  const [clientDropdownOpen, setClientDropdownOpen] = useState(false);
+  const [attendeeFilterOpen, setAttendeeFilterOpen] = useState(false);
+
+  // Load on mount
+  useEffect(() => {
+    const list = getClientList();
+    const client = resolveActiveClient();
+    setClientListState(list);
+    setActiveClientState(client);
+    if (client) {
+      const data = loadClientData(client);
+      setMeetings(data.meetings);
+      setCategories(data.categories);
+      setPeople(data.people);
+    }
+  }, []);
+
+  function switchClient(name: string) {
+    setActiveClient(name);
+    setActiveClientState(name);
+    setAttendeeFilter(null);
+    const data = loadClientData(name);
+    setMeetings(data.meetings);
+    setCategories(data.categories);
+    setPeople(data.people);
+  }
+
+  // Collect all attendee names for filter
+  const allAttendeeNames = Array.from(
+    new Set([
+      ...people.map((p) => p.name),
+      ...meetings.flatMap((m) => m.attendees || []),
+    ])
+  ).sort((a, b) => a.localeCompare(b));
+
+  const filteredMeetings = attendeeFilter
+    ? meetings.filter((m) => (m.attendees || []).includes(attendeeFilter))
+    : meetings;
+
+  const hasMeetings = meetings.length > 0;
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div className="bg-app-gray min-h-screen">
+      <AppHeader
+        subtitle="Recurring Meeting Schedule"
+        activeClient={activeClient}
+        clientList={clientList}
+        clientDropdownOpen={clientDropdownOpen}
+        onClientToggle={() => setClientDropdownOpen((o) => !o)}
+        onClientClose={() => setClientDropdownOpen(false)}
+        onClientSwitch={switchClient}
+      >
+        {/* Attendee filter */}
+        <AttendeeFilterDropdown
+          people={allAttendeeNames}
+          activeFilter={attendeeFilter}
+          onFilter={setAttendeeFilter}
+          open={attendeeFilterOpen}
+          onToggle={() => setAttendeeFilterOpen((o) => !o)}
+          onClose={() => setAttendeeFilterOpen(false)}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+
+        {/* Print */}
+        <button
+          type="button"
+          onClick={() => window.print()}
+          className="flex items-center gap-2 px-3 py-1.5 border border-app-border rounded-lg text-sm text-gray-600 hover:bg-app-gray transition-colors no-print cursor-pointer"
+        >
+          <HiPrinter className="w-4 h-4" />
+          Print / PDF
+        </button>
+
+        {/* Edit Meetings */}
+        <Link
+          href="/editor"
+          className="flex items-center gap-2 px-3 py-1.5 bg-app-blue text-white rounded-lg text-sm font-semibold hover:bg-app-navy transition-colors no-print cursor-pointer"
+        >
+          <HiPencilSquare className="w-4 h-4" />
+          Edit Meetings
+        </Link>
+      </AppHeader>
+
+      <div className="px-6 py-4 space-y-4">
+        {!hasMeetings && <EmptyState />}
+
+        {hasMeetings && (
+          <>
+            {/* Calendar grid */}
+            <div className="bg-white border border-app-border rounded-xl overflow-hidden">
+              <CalendarGrid meetings={filteredMeetings} categories={categories} />
+            </div>
+
+            {/* Legend + meetings list */}
+            <div className="space-y-4" style={{ pageBreakBefore: 'always' } as React.CSSProperties}>
+              <Legend categories={categories} />
+              <MeetingsList
+                meetings={filteredMeetings}
+                categories={categories}
+                title={attendeeFilter ? `Meetings — ${attendeeFilter}` : 'All Meetings'}
+                filterLabel={attendeeFilter ? `Filtered by: ${attendeeFilter}` : undefined}
+              />
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 }

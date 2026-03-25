@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Background rounded square -->
+  <rect width="64" height="64" rx="14" fill="#11395B"/>
+
+  <!-- Calendar body -->
+  <rect x="10" y="18" width="44" height="34" rx="4" fill="white" opacity="0.12"/>
+  <rect x="10" y="18" width="44" height="34" rx="4" stroke="white" stroke-width="2.5"/>
+
+  <!-- Header fill -->
+  <rect x="10" y="18" width="44" height="12" rx="4" fill="white" opacity="0.22"/>
+  <rect x="10" y="26" width="44" height="4" fill="white" opacity="0.22"/>
+
+  <!-- Date pegs -->
+  <rect x="21" y="13" width="4" height="10" rx="2" fill="#17A7DA"/>
+  <rect x="39" y="13" width="4" height="10" rx="2" fill="#17A7DA"/>
+
+  <!-- Grid cells: 3 col × 2 row -->
+  <rect x="14" y="35" width="8" height="7" rx="2" fill="white" opacity="0.85"/>
+  <rect x="28" y="35" width="8" height="7" rx="2" fill="#17A7DA" opacity="0.9"/>
+  <rect x="42" y="35" width="8" height="7" rx="2" fill="white" opacity="0.4"/>
+  <rect x="14" y="44" width="8" height="4" rx="2" fill="white" opacity="0.4"/>
+  <rect x="28" y="44" width="8" height="4" rx="2" fill="white" opacity="0.4"/>
+  <rect x="42" y="44" width="8" height="4" rx="2" fill="white" opacity="0.4"/>
+</svg>

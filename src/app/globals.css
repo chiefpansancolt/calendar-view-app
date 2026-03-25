@@ -1,6 +1,7 @@
 @import "tailwindcss";
-@import "flowbite-react/plugin/tailwindcss";
+@variant dark (&:where(.dark, .dark *));
 @source "../../.flowbite-react/class-list.json";
+@import "flowbite-react/plugin/tailwindcss";
 
 :root {
   --background: #ffffff;
@@ -12,17 +13,26 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* App color palette */
+  --color-app-blue: #17A7DA;
+  --color-app-navy: #11395B;
+  --color-app-dark: #0D253A;
+  --color-app-gray: #FBF9F6;
+  --color-app-border: #D4E7ED;
+  --color-app-light: #EAF6FB;
+  --color-app-muted: #7BB3C5;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+@media print {
+  @page { size: letter landscape; margin: 0.4in; }
+  .no-print { display: none !important; }
+  body { background: #fff; font-size: 9pt; }
 }
