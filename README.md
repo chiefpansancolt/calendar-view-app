@@ -1,23 +1,25 @@
 # Meeting Calendar
 
-A recurring meeting schedule viewer and editor. Manage clients, categories, people, and meetings — then view them on a weekly calendar grid. All data is stored locally in the browser with no backend required.
+<p align="center">
+  <img src="public/logo.svg" alt="Meeting Calendar Logo" width="96" />
+</p>
 
-![Meeting Calendar Logo](public/logo-32.png)
+A recurring meeting schedule viewer and editor built with Next.js. Manage clients, categories, people, and meetings, then view the resulting schedule on a weekly calendar grid. All data is persisted locally in the browser, no backend or database required.
 
 ---
 
 ## Features
 
-- **Weekly calendar view** — meetings displayed as color-coded blocks on a Mon–Fri grid with overlap handling
-- **Meeting editor** — full CRUD for meetings with title, days, cadence, category, time, attendees, meeting link, and notes
-- **Multi-client support** — create, rename, and delete named clients; each has isolated data
-- **Categories** — define color-coded categories with a color picker and randomizer
-- **People roster** — maintain an attendee list with name and role; used as a multi-select in the meeting form
+- **Weekly calendar view** — meetings displayed as color-coded blocks on a Monday–Friday grid, with automatic overlap handling
+- **Meeting editor** — full CRUD for meetings, including title, days, cadence, category, time, attendees, meeting link, and notes
+- **Multi-client support** — create, rename, and delete named clients, each with isolated data
+- **Categories** — color-coded categories with a color picker and randomizer
+- **People roster** — maintain an attendee list with name and role, used as a multi-select in the meeting form
 - **Attendee filter** — filter the calendar and meetings list by a single attendee
-- **Import / Export** — export client data as JSON; import with replace or merge options
-- **Modals** — all confirmations, prompts, and alerts use Flowbite React modals (no browser dialogs)
-- **Print support** — landscape print layout with toolbar hidden
-- **Light-only UI** — no dark mode
+- **Import / export** — export client data as JSON, and import it with replace or merge options
+- **Accessible modals** — confirmations, prompts, and alerts use Flowbite React modals rather than native browser dialogs
+- **Print support** — dedicated landscape print layout with the toolbar hidden
+- **Light-only interface** — no dark mode
 
 ---
 
@@ -96,9 +98,11 @@ Open [http://localhost:3000](http://localhost:3000).
 ### Other commands
 
 ```bash
-pnpm build    # Production build
-pnpm start    # Start production server
-pnpm lint     # Run ESLint
+pnpm build          # Production build
+pnpm start          # Start production server
+pnpm lint           # Run ESLint
+pnpm format         # Format the codebase with Prettier
+pnpm format:check   # Check formatting without writing changes
 ```
 
 ---
@@ -113,7 +117,7 @@ All data is persisted in `localStorage` with no server or database. Each client 
 | `meeting_calendar:active`  | Currently selected client name                   |
 | `meeting_calendar:{name}`  | Meetings, categories, and people for that client |
 
-Data can be exported as JSON and re-imported into any client (replace or merge).
+Data can be exported as JSON and re-imported into any client, using either replace or merge semantics.
 
 ---
 
