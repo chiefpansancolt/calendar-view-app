@@ -4,7 +4,7 @@
   <img src="public/logo.svg" alt="Meeting Calendar Logo" width="96" />
 </p>
 
-A recurring meeting schedule viewer and editor built with Next.js. Manage clients, categories, people, and meetings, then view the resulting schedule on a weekly calendar grid. All data is persisted locally in the browser, no backend or database required.
+A recurring meeting schedule viewer and editor built. Manage clients, categories, people, and meetings, then view the resulting schedule on a weekly calendar grid. All data is persisted locally in the browser, no backend or database required.
 
 ---
 
