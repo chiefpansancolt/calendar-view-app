@@ -24,15 +24,23 @@ export default function PromptModal({
 	onCancel,
 }: Props) {
 	const [value, setValue] = useState(defaultValue);
+	const [prevShow, setPrevShow] = useState(show);
 	const inputRef = useRef<HTMLInputElement>(null);
 
-	// Sync value when defaultValue changes (e.g. rename pre-fills existing name)
+	// Reset value when the modal transitions to open (e.g. rename pre-fills existing name).
+	// Adjusted during render rather than in an effect to avoid an extra render pass.
+	if (show !== prevShow) {
+		setPrevShow(show);
+		if (show) setValue(defaultValue);
+	}
+
+	// Focusing the input is a DOM side effect and belongs in an effect
 	useEffect(() => {
 		if (show) {
-			setValue(defaultValue);
-			setTimeout(() => inputRef.current?.select(), 50);
+			const timer = setTimeout(() => inputRef.current?.select(), 50);
+			return () => clearTimeout(timer);
 		}
-	}, [show, defaultValue]);
+	}, [show]);
 
 	function handleConfirm() {
 		const trimmed = value.trim();

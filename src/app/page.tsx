@@ -27,7 +27,9 @@ export default function CalendarPage() {
 	const [clientDropdownOpen, setClientDropdownOpen] = useState(false);
 	const [attendeeFilterOpen, setAttendeeFilterOpen] = useState(false);
 
-	// Load on mount
+	// Load on mount. localStorage is only available client-side, so this can't be
+	// read during the initial render without breaking SSR hydration.
+	/* eslint-disable react-hooks/set-state-in-effect */
 	useEffect(() => {
 		const list = getClientList();
 		const client = resolveActiveClient();
@@ -40,6 +42,7 @@ export default function CalendarPage() {
 			setPeople(data.people);
 		}
 	}, []);
+	/* eslint-enable react-hooks/set-state-in-effect */
 
 	function switchClient(name: string) {
 		setActiveClient(name);

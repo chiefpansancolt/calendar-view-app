@@ -62,7 +62,7 @@ export default function DataModal({ open, onClose, onExport, onImport, onClear }
 				</div>
 
 				<p className="mt-4 text-xs text-gray-400">
-					All data is saved in your browser's localStorage automatically.
+					All data is saved in your browser&apos;s localStorage automatically.
 				</p>
 			</div>
 		</div>

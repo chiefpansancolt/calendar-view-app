@@ -3,7 +3,7 @@
 import type { Category, Meeting, Person } from "@/src/lib/types";
 import { DAYS } from "@/src/lib/types";
 import { genId } from "@/src/lib/utils";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import AttendeeMultiSelect from "./AttendeeMultiSelect";
 
 interface Props {
@@ -35,28 +35,31 @@ export default function MeetingForm({
 }: Props) {
 	const [fields, setFields] = useState(BLANK);
 	const [error, setError] = useState("");
+	const [prevEditingMeeting, setPrevEditingMeeting] = useState(editingMeeting);
 
-	// Sync form when editing meeting changes (including reset to null)
-	useEffect(() => {
-		if (editingMeeting) {
-			setFields({
-				title: editingMeeting.title,
-				days: Array.isArray(editingMeeting.dayOfWeek)
-					? editingMeeting.dayOfWeek
-					: [editingMeeting.dayOfWeek],
-				cadence: editingMeeting.cadence,
-				category: editingMeeting.category,
-				startTime: editingMeeting.startTime,
-				endTime: editingMeeting.endTime,
-				attendees: editingMeeting.attendees || [],
-				webex: editingMeeting.webexLink || "",
-				description: editingMeeting.description || "",
-			});
-		} else {
-			setFields(BLANK);
-		}
+	// Reset form when editingMeeting changes (including reset to null).
+	// Adjusted during render rather than in an effect to avoid an extra render pass.
+	if (editingMeeting !== prevEditingMeeting) {
+		setPrevEditingMeeting(editingMeeting);
+		setFields(
+			editingMeeting
+				? {
+						title: editingMeeting.title,
+						days: Array.isArray(editingMeeting.dayOfWeek)
+							? editingMeeting.dayOfWeek
+							: [editingMeeting.dayOfWeek],
+						cadence: editingMeeting.cadence,
+						category: editingMeeting.category,
+						startTime: editingMeeting.startTime,
+						endTime: editingMeeting.endTime,
+						attendees: editingMeeting.attendees || [],
+						webex: editingMeeting.webexLink || "",
+						description: editingMeeting.description || "",
+					}
+				: BLANK
+		);
 		setError("");
-	}, [editingMeeting]);
+	}
 
 	function setField<K extends keyof typeof BLANK>(key: K, value: (typeof BLANK)[K]) {
 		setFields((prev) => ({ ...prev, [key]: value }));

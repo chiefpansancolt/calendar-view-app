@@ -89,7 +89,9 @@ export default function EditorPage() {
 		setDialog({ type: "none" });
 	}
 
-	// Load on mount
+	// Load on mount. localStorage is only available client-side, so this can't be
+	// read during the initial render without breaking SSR hydration.
+	/* eslint-disable react-hooks/set-state-in-effect */
 	useEffect(() => {
 		const list = getClientList();
 		const client = resolveActiveClient();
@@ -105,6 +107,7 @@ export default function EditorPage() {
 		document.addEventListener("keydown", handleKeyDown);
 		return () => document.removeEventListener("keydown", handleKeyDown);
 	}, []);
+	/* eslint-enable react-hooks/set-state-in-effect */
 
 	function save(next: { meetings: Meeting[]; categories: Category[]; people: Person[] }) {
 		if (!activeClient) return;

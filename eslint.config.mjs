@@ -17,6 +17,8 @@ const config = [
       "*.config.mjs",
       ".flowbite-react/",
       "dist/",
+      "src/types/validator.ts",
+      "src/types/routes.d.ts",
     ],
   },
 ];
