@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -28,7 +29,14 @@ export default function RootLayout({
 			lang="en"
 			className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
 		>
-			<body className="flex min-h-full flex-col">{children}</body>
+			<body className="flex min-h-full flex-col">
+				{children}
+				<Script
+					src="https://static.cloudflareinsights.com/beacon.min.js"
+					data-cf-beacon='{"token": "1bdabdc5de7445059b243e942f6e5ef2"}'
+					strategy="afterInteractive"
+				/>
+			</body>
 		</html>
 	);
 }
